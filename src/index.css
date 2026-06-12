@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Custom theme colors for ReliefNow Chiropractic */
+@theme {
+  --color-teal-dark: #0D3B3E;
+  --color-teal-mid: #1A6B6F;
+  --color-teal-light: #2A9D8F;
+  --color-teal-lighter: #E8F5F4;
+  --color-gold: #E9C46A;
+  --color-warm: #F4A261;
+}
