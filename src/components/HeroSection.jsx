@@ -1,63 +1,100 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 
-function HeroSection() {
+const headlines = [
+  { text: 'Back Pain?', highlight: 'Get Relief Today' },
+  { text: 'Neck Stiffness?', highlight: 'We Can Help' },
+  { text: 'Tension Headaches?', highlight: 'Find Relief Now' },
+]
+
+export default function HeroSection() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % headlines.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const current = headlines[currentIndex]
+
   return (
     <section className="relative bg-teal-dark overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-teal-light rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-teal-mid rounded-full blur-3xl"></div>
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 opacity-[0.07]">
+        <div className="absolute -top-20 -left-20 w-80 h-80 bg-teal-light rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-teal-light rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center bg-teal-mid/40 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-28 lg:py-36">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Differentiator Badge */}
+          <div className="inline-flex items-center bg-gradient-to-r from-teal-mid/60 to-teal-light/30 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6 border border-teal-light/20">
             <span className="w-2 h-2 bg-teal-light rounded-full animate-pulse mr-2"></span>
-            <span className="text-teal-light text-xs md:text-sm font-medium">Open today until 11 PM</span>
+            <span className="text-teal-light text-xs md:text-sm font-semibold tracking-wide">
+              ⏰ Open Today Until 11 PM — Same-Day Appointments Available
+            </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-            Instant <span className="text-teal-light">Pain Relief</span>
-            <br />
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-gray-200">
-              When You Need It Most
-            </span>
-          </h1>
+          {/* Animated Headline */}
+          <div className="transition-all duration-500 min-h-[8rem] md:min-h-[10rem]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-2">
+              {current.text}
+            </h1>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-teal-light mt-2 transition-all duration-500">
+              {current.highlight}
+            </div>
+          </div>
 
-          <p className="text-base md:text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Hyderabad's elite chiropractic clinic. Open late until 11 PM for busy professionals.
-            Back pain, neck pain, headaches — get same-day relief in minutes.
+          <p className="text-base md:text-lg text-gray-300 mt-6 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Hyderabad's premium chiropractic clinic. Open late for busy professionals.
+            Expert care for back pain, neck stiffness, headaches — get same-day relief.
           </p>
 
+          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="#book"
-              className="w-full sm:w-auto bg-teal-light hover:bg-teal-mid text-white px-8 py-3.5 rounded-xl font-bold text-base md:text-lg transition-all shadow-lg hover:shadow-xl"
+            <button
+              onClick={() => {
+                const widget = document.getElementById('chat-widget-trigger')
+                if (widget) widget.click()
+              }}
+              className="w-full sm:w-auto bg-teal-light hover:bg-teal-mid text-white px-10 py-4 rounded-xl font-bold text-base md:text-lg transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
-              Book Instant Appointment
-            </a>
+              Book Free Consultation
+            </button>
             <a
               href="#services"
-              className="w-full sm:w-auto border-2 border-white/20 hover:border-white/40 text-white px-8 py-3.5 rounded-xl font-semibold text-base md:text-lg transition-all"
+              className="w-full sm:w-auto border-2 border-white/20 hover:border-white/40 text-white px-10 py-4 rounded-xl font-semibold text-base md:text-lg transition-all hover:bg-white/5"
             >
               Our Services
             </a>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-12 pt-12 border-t border-white/10">
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-white">&lt; 5 min</div>
-              <div className="text-xs md:text-sm text-gray-400 mt-1">Response Time</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-white">11 PM</div>
-              <div className="text-xs md:text-sm text-gray-400 mt-1">Late Hours</div>
-            </div>
-            <div className="text-center col-span-2 md:col-span-1">
-              <div className="text-2xl md:text-3xl font-bold text-white">95%</div>
-              <div className="text-xs md:text-sm text-gray-400 mt-1">Pain Relief Rate</div>
+          {/* Social Proof Bar */}
+          <div className="mt-12 pt-10 border-t border-white/10">
+            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+              {/* Rating */}
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <svg key={star} xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${star <= 4 ? 'text-gold' : 'text-gold/50'}`} viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-white font-bold text-lg">4.6</span>
+                <span className="text-gray-400 text-sm">★ (200+ Reviews)</span>
+              </div>
+
+              {/* Stats */}
+              <div className="flex items-center gap-3 text-sm text-gray-400">
+                <span className="w-1.5 h-1.5 bg-teal-light rounded-full"></span>
+                <span>&lt; 5 min AI Response</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-gray-400">
+                <span className="w-1.5 h-1.5 bg-teal-light rounded-full"></span>
+                <span>Open Until 11 PM Daily</span>
+              </div>
             </div>
           </div>
         </div>
@@ -65,5 +102,3 @@ function HeroSection() {
     </section>
   )
 }
-
-export default HeroSection

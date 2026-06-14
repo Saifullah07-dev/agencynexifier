@@ -1,4 +1,3 @@
-import React from 'react'
 import Header from '../components/Header'
 import HeroSection from '../components/HeroSection'
 import ServicesSection from '../components/ServicesSection'
@@ -8,9 +7,9 @@ import CTASection from '../components/CTASection'
 import Footer from '../components/Footer'
 import ChatWidget from '../components/ChatWidget'
 
-function LandingPage() {
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white font-sans">
       <Header />
       <main>
         <HeroSection />
@@ -24,5 +23,3 @@ function LandingPage() {
     </div>
   )
 }
-
-export default LandingPage
